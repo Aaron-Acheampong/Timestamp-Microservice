@@ -26,7 +26,7 @@ app.get("/api/hello", function (req, res) {
 });
 
 
-app.get("/api/timestamp", (req, res) => {
+app.get("/api", (req, res) => {
   let now = new Date();
   res.json({
     "unix": now.getTime(), 
@@ -36,8 +36,19 @@ app.get("/api/timestamp", (req, res) => {
 
 
 
-app.get("/api/timestamp/:date_input", (req, res) => {
+app.get("/api/:date_input", (req, res) => {
   let input = req.params.date_input;
+
+  if(parseInt(input) > 10000) {
+    let unixtype = new Date(parseInt(input));
+    res,json({
+      "unix": unixtype.getTime(), 
+      "utc": unixtype.toUTCString()
+    });
+  }
+
+
+
   let passedDate = new Date(input);
 
   if(passedDate == "Invalid Date"){
