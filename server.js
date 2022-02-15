@@ -27,33 +27,31 @@ app.get("/api/hello", function (req, res) {
 
 
 app.get("/api/timestamp", (req, res) => {
-  let date_obj = {};
-  date_obj['unix'] = new Date().getTime();
-  date_obj['utc'] = new Date().toUTCString();
-  res.json(date_obj);
+  let now = new Date();
+  res.json({
+    "unix": now.getTime(), 
+    "utc": now.toUTCString()
+  });
 });
 
 
 
 app.get("/api/timestamp/:date_input", (req, res) => {
   let input = req.params.date_input;
-  let date_obj = {};
+  let passedDate = new Date(input);
 
-  if(date_input.includes('-')){
-    date_obj['unix'] = new Date(input).getTime();
-    date_obj['utc'] = new Date(input).toUTCString();
+  if(passedDate == "Invalid Date"){
+    res.json({
+      "error": "Invalid Date"
+    });
   }
   else {
-    input = parseInt(input);
-    date_obj['unix'] = new Date(input).getTime();
-    date_obj['utc'] = new Date(input).toUTCString();
+    res.json({
+      "unix": passedDate.getTime(), 
+      "utc": passedDate.toUTCString()
+    });
   }
 
-  if(!date_obj['unix'] || !date_obj['utc']){
-    res.json({"error": "Invalid Date"});
-  }
-  
-  res.json(date_obj);
 });
 
 
