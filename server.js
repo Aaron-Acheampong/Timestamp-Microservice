@@ -1,9 +1,10 @@
-// server.js
+ // server.js
 // where your node app starts
 
 // init project
 const express = require('express');
 const app = express();
+const PORT = process.env.PORT || 3000;
 
 // enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
 // so that your API is remotely testable by FCC 
@@ -25,7 +26,7 @@ app.get("/api/hello", function (req, res) {
 });
 
 
-app.get('/api/timestamp', (req, res) => {
+app.get("/api/timestamp", (req, res) => {
   let date_obj = {};
   date_obj['unix'] = new Date().getTime();
   date_obj['utc'] = new Date().toUTCString();
@@ -34,7 +35,7 @@ app.get('/api/timestamp', (req, res) => {
 
 
 
-app.get('/api/timestamp/:date_input', (req, res) => {
+app.get("/api/timestamp/:date_input", (req, res) => {
   let input = req.params.date_input;
   let date_obj = {};
 
@@ -58,6 +59,6 @@ app.get('/api/timestamp/:date_input', (req, res) => {
 
 
 // listen for requests :)
-const listener = app.listen(process.env.PORT, function () {
+const listener = app.listen(PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
