@@ -41,7 +41,7 @@ app.get("/api/:date_input", (req, res) => {
 
   if(parseInt(input) > 10000) {
     let unixtype = new Date(parseInt(input));
-    res,json({
+    res.json({
       "unix": unixtype.getTime(), 
       "utc": unixtype.toUTCString()
     });
